@@ -2,7 +2,7 @@
 
 HP25 type calculator 
 
-Debugged together by  C Lombard, stoffel-lombard@up.ac.za
+Debugged together by  C Lombard
 February 1991, October 1994
 
 The idea was to replace my old HP25 (whose batteries are now
