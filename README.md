@@ -1,13 +1,16 @@
 # rpn
 
 HP25 type calculator 
+
 Debugged together by  C Lombard, stoffel-lombard@up.ac.za
 February 1991, October 1994
+
 The idea was to replace my old HP25 (whose batteries are now
 always flat) with something just as convenient and with the
 same keystrokes on the numeric pad. Also, I want to always
 see what's in the registers and stack. No mice please, they
-make me scream.
+make me scream. This uses curses text base display.
+
 Accuracy: >12 digits (sometimes), actually C-double precision
 types are used. You can't program the calculator because it
 would be silly to do so. Rather use BASIC. 
@@ -22,5 +25,7 @@ _EEX character since these characters signal an exponent.
 If you divide by zero or pull the root of a negative number,
 your house will cave in - serves you right!
 For unix version: link with -lm -lncurses, i.e.
+
 gcc -O rpn.c -o rpn -lm -lncurses    
+
 seems to do the trick.
