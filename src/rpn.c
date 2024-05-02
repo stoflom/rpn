@@ -900,11 +900,11 @@ int main ()
 						{       /*convert to H.MS */
 							int   hours, mins, secs;
 							lastx =   s_x;
-							secs = (int)ceil  (s_x * 3600.0);
+							secs = (int)  (s_x * 3600.0);
 							hours =   secs / 3600;
-							secs = (int)fmod  (secs, 3600.0);
-							mins = secs   / 60;
-							secs = (int)fmod  (secs, 60.0);
+							secs = secs - hours * 3600;
+							mins = secs / 60;
+							secs = secs - mins * 60;
 							s_x   = hours + mins / 100.0 + secs / 10000.0;
 							update (1);
 							break;
