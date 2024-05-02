@@ -1010,14 +1010,15 @@ int main ()
 						}
 					case 'd':
 						{       /* convert to decimal hours */
-							double mins, secs;
+							int hours, mins, secs;
 							lastx =   s_x;
-							temp = (s_x   - floor (s_x)) * 100.0;
-							mins = floor (temp);
-							temp = (temp - mins) * 100.0;
-							secs = ceil   (temp);
-							s_x   = (double) ((long) s_x) + mins / 60.0 +
-								secs / 3600.0;
+							hours = (int) floor (s_x);
+							temp = (s_x - hours) * 100.0;
+							mins = (int) floor(temp);
+							temp = (temp - mins) * 100.0; 
+							secs = (int) floor(temp) ;
+							s_x   = (double) ( hours + mins / 60.0 +
+								 secs / 3600.0 );
 							update (1);
 							break;
 						}
