@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/rpn",
+            "program": "${workspaceFolder}/src/rpn",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

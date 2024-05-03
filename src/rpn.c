@@ -906,8 +906,7 @@ int main ()
 							mins = secs / 60;
 							secs = secs - mins * 60;
 							s_x   = hours + mins / 100.0 + secs / 10000.0;
-							update (1);
-							break;
+							update (1);						break;
 						}
 					}
 					break;

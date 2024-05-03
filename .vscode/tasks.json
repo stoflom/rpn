@@ -6,9 +6,7 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
-                "${file}",
-                "-g -O rpn.c -o rpn -lm -lncurses ",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "-g -O rpn.c -o rpn -lm -lncurses "
             ],
             "options": {
                 "cwd": "${fileDirname}"
