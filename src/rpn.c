@@ -1,4 +1,4 @@
-/* HP25 type calculator 
+  /* HP25 type calculator 
 
 Debugged together by  C Lombard
 
@@ -898,15 +898,17 @@ int main ()
 						}
 					case 'h':
 						{       /*convert to H.MS */
-							int   hours, mins, secs;
+						int hours, mins;
+							double secs;
 							lastx =   s_x;
-							secs = (int)  (s_x * 3600.0);
+							secs = (s_x * 3600.0);
 							hours =   secs / 3600;
 							secs = secs - hours * 3600;
 							mins = secs / 60;
 							secs = secs - mins * 60;
 							s_x   = hours + mins / 100.0 + secs / 10000.0;
-							update (1);						break;
+							update (1);
+							break;
 						}
 					}
 					break;
@@ -1015,9 +1017,8 @@ int main ()
 							temp = (s_x - hours) * 100.0;
 							mins = (int) floor(temp);
 							temp = (temp - mins) * 100.0; 
-							secs = (int) floor(temp) ;
 							s_x   = (double) ( hours + mins / 60.0 +
-								 secs / 3600.0 );
+								 temp / 3600.0 );
 							update (1);
 							break;
 						}
@@ -1178,15 +1179,15 @@ void init ()                /* initializes the screen */
 	gotoxy (regw_left - 7, regw_bottom - 4);
 	cputs ("n   R4");
 	gotoxy (regw_left - 7, regw_bottom - 5);
-	cputs ("�y� R5");
+	cputs ("Syy R5");
 	gotoxy (regw_left - 7, regw_bottom - 6);
-	cputs ("�y  R6");
+	cputs ("Sy  R6");
 	gotoxy (regw_left - 7, regw_bottom - 7);
-	cputs ("�xy R7");
+	cputs ("Sxy R7");
 	gotoxy (regw_left - 7, regw_bottom - 8);
-	cputs ("�x� R8");
+	cputs ("Sxx R8");
 	gotoxy (regw_left - 7, regw_bottom - 9);
-	cputs ("�x  R9");
+	cputs ("Sx  R9");
 	gotoxy (regw_left + 7, regw_bottom - 10);
 	cputs ("-REGISTERS-");
 	update_stack ();
@@ -1690,7 +1691,7 @@ double acosh  (double x)      /* acosh function */
 
 double find_mortgage_i    ()      /* calculate interest rate by iteration */
 {
-        double i0, i1, i0p1, n, pofn, rat;
+		double i0, i1, i0p1, n, pofn, rat;
 	n =   regs[4];
 	i1 = 1.0 / rat - rat / (n * n);
 	do
