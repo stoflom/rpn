@@ -902,9 +902,9 @@ int main ()
 							double secs;
 							lastx =   s_x;
 							secs = (s_x * 3600.0);
-							hours =   secs / 3600;
+							hours = floor(secs / 3600);
 							secs = secs - hours * 3600;
-							mins = secs / 60;
+							mins = floor(secs / 60);
 							secs = secs - mins * 60;
 							s_x   = hours + mins / 100.0 + secs / 10000.0;
 							update (1);
@@ -1011,7 +1011,7 @@ int main ()
 						}
 					case 'd':
 						{       /* convert to decimal hours */
-							int hours, mins, secs;
+							int hours, mins;
 							lastx =   s_x;
 							hours = (int) floor (s_x);
 							temp = (s_x - hours) * 100.0;
