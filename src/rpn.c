@@ -1693,6 +1693,7 @@ double find_mortgage_i    ()      /* calculate interest rate by iteration */
 {
 		double i0, i1, i0p1, n, pofn, rat;
 	n =   regs[4];
+	rat = regs[1]/regs[3];
 	i1 = 1.0 / rat - rat / (n * n);
 	do
 	{
@@ -1701,7 +1702,7 @@ double find_mortgage_i    ()      /* calculate interest rate by iteration */
 		pofn = pow (i0p1,-n);
 		i1 = i0 - ((1.0 - pofn) / i0 - rat) / ((pofn * (i0 * i0p1 / (1.0 - n) + 1.0) - 1.0) / (i0 * i0));
 	}
-	while ( fabs(i0 - i1) > 1.e-9);
+	while ( fabs(i0 - i1) > SMALL);
 	return i1;
 }
 
