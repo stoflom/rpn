@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/src/rpn",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}/src",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
@@ -28,6 +28,5 @@
                 }
             ]
         }
-
     ]
 }

@@ -1545,24 +1545,24 @@ void init ()              /* initializes the screen */
 	/* initialize stack window */
 	mvaddstr (1, 0, "RPN Calculator\n\rPress '?' for help");
 	attron (A_STANDOUT);
-	mvaddch (stackw_left - 2, stackw_bottom, 'x');
+	mvaddch (stackw_left - 2,      stackw_bottom, 'x');
 	attroff (A_STANDOUT);
-	mvaddch (stackw_bottom - 2, stackw_left - 2, 'y');
-	mvaddch (stackw_bottom - 3, stackw_left - 2, 'z');
-	mvaddch (stackw_bottom - 4, stackw_left - 2, 't');
+	mvaddch (stackw_bottom - 2,  stackw_left - 2, 'y');
+	mvaddch (stackw_bottom - 3,  stackw_left - 2, 'z');
+	mvaddch (stackw_bottom - 4,  stackw_left - 2, 't');
 	mvaddstr (stackw_bottom - 5, stackw_left - 3, "lx");
 	mvaddstr (stackw_bottom - 6, stackw_left + 9, "-STACK-");
 	mvaddstr (stackw_bottom - 5, stackw_left - 3, "lx");
 	/* initialize register window */
-	mvaddstr (regw_bottom, regw_left - 9, "i%    R0");
+	mvaddstr (regw_bottom,     regw_left - 9, "i%    R0");
 	mvaddstr (regw_bottom - 1, regw_left - 9, "PV    R1");
 	mvaddstr (regw_bottom - 2, regw_left - 9, "FV    R2");
 	mvaddstr (regw_bottom - 3, regw_left - 9, "PMT   R3");
 	mvaddstr (regw_bottom - 4, regw_left - 9, "n     R4");
-	mvaddstr (regw_bottom - 5, regw_left - 9, "S:y^2 R5");
+	mvaddstr (regw_bottom - 5, regw_left - 9, "S:yy  R5");
 	mvaddstr (regw_bottom - 6, regw_left - 9, "S:y   R6");
 	mvaddstr (regw_bottom - 7, regw_left - 9, "S:xy  R7");
-	mvaddstr (regw_bottom - 8, regw_left - 9, "S:x^2 R8");
+	mvaddstr (regw_bottom - 8, regw_left - 9, "S:xy  R8");
 	mvaddstr (regw_bottom - 9, regw_left - 9, "S:x   R9");
 	mvaddstr (regw_bottom - 10, regw_left + 7, "-REGISTERS-");
 	update_stack ();

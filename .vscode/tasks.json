@@ -8,12 +8,12 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-orpn",
-                "-lm",
+                "-lm", 
                 "-lncurses",
-                "${file}"
+                "${workspaceFolder}/src/rpn.c"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/src"
             },
             "problemMatcher": [
                 "$gcc"
