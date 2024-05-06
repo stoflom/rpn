@@ -121,8 +121,9 @@ char help_screen1[] = "\n"
 "    asin x             'as'         asinh x            'hs'\n"
 "    acos x             'ac'         acosh x            'hc'\n"
 "    atan x             'at'         atanh x            'ht'\n"
+"    erf x              'nd'         erfc x             'id'\n"
 "    degrees mode       'dg'         radians mode       'ra'\n"
-"    normal distrib.    'nd'         inv. normal distr. 'id'\n"
+
 "    normal density     'no' \n\n"
 "       For more - any key   q - quits";
 
@@ -193,12 +194,12 @@ void show_help(void);      /* show help screen */
 void xupdate(void);        /* update x register only */
 char get_ch(void);     /* read a single character from keyboard */
 
-double atanh(double);      /* atanh function */
-double asinh(double);      /* asinh function */
-double acosh(double);      /* acosh function */
+//double atanh(double);      /* atanh function */
+//double asinh(double);      /* asinh function */
+//double acosh(double);      /* acosh function */
 double norm_dis(double);   /* normal distribution */
-double errf(double);       /* error function */
-double inerrf(double);     /* inverse error function */
+//double erf(double);       /* error function */
+//double erfc(double);     /* inverse error function */
 double find_mortgage_i(void);  /* find mortgage interest by newton iteration */
 double find_annuity_i(void);  /* find annuity interest */
 
@@ -964,7 +965,7 @@ int main()
 				case 'd':
 				{
 					lastx = s_x;
-					s_x = errf(s_x);
+					s_x = erf(s_x);
 					update(1);
 					break;
 				}
@@ -984,7 +985,7 @@ int main()
 				case 'd':
 				{
 					lastx = s_x;
-					s_x = inerrf(s_x);
+					s_x = erfc(s_x);
 					update(1);
 					break;
 				}
@@ -1687,22 +1688,6 @@ void update(char liftup)     /* updates display */
 }
 
 
-double atanh(double x)      /* atanh function */
-{
-	return (0.5 * log((1.0 + x) / (1.0 - x)));
-}
-
-double asinh(double x)      /* asinh function */
-{
-	return (log(x + sqrt(x * x + 1.0)));
-}
-
-
-double acosh(double x)      /* acosh function */
-{
-	return (log(x + sqrt(x * x - 1.0)));
-}
-
 
 double find_mortgage_i()      /* calculate interest rate by iteration */
 {
@@ -1742,46 +1727,64 @@ double find_annuity_i()      /* calculate interest rate of an annuity*/
 }
 
 
-double errf(double x)            /* error function */
-{
-	const double r = 0.2316419, b1 = 0.31938153, b2 = -.356563782, b3 = 1.781477937,
-		b4 = -1.82155978, b5 = 1.330274429;
-	double t, neg, cx;
-	if (x < 0.0)
-	{
-		cx = -x;
-		neg = 1.0;
-	}
-	else
-	{
-		cx = x;
-		neg = 0.0;
-	}
-	t = 1.0 / (1.0 + r * cx);
-	cx = norm_dis(x) * ((((b5 * t + b4) * t + b3) * t + b2) * t + b1) * t;
-	return (neg) ? cx : 1.0 - cx;
-}
 
-double inerrf(double x)      /* inverse error function ) */
-{
-	const double
-		c0 = 2.515517, c1 = 0.802853, c2 = 0.010328, d1 = 1.432788, d2 = 0.189269,
-		d3 = 0.001308;
-	double t, omx;
-	double lth;
-	if (x < 0.5)
-	{
-		omx = x;
-		lth = -1.0;
-	}
-	else
-	{
-		omx = 1.0 - x;
-		lth = 1.0;
-	}
-	t = sqrt(log(1.0 / (omx * omx)));
-	return (t - ((c2 * t + c1) * t + c0) / (((d3 * t + d2) * t + d1) * t + 1.0)) * lth;
-}
+//double atanh(double x)      /* atanh function */
+//{
+//	return (0.5 * log((1.0 + x) / (1.0 - x)));
+//}
+//
+//double asinh(double x)      /* asinh function */
+//{
+//	return (log(x + sqrt(x * x + 1.0)));
+//}
+//
+//
+//double acosh(double x)      /* acosh function */
+//{
+//	return (log(x + sqrt(x * x - 1.0)));
+//}
+//
+
+//double erf(double x)            /* error function */
+//{
+//	const double r = 0.2316419, b1 = 0.31938153, b2 = -.356563782, b3 = 1.781477937,
+//		b4 = -1.82155978, b5 = 1.330274429;
+//	double t, neg, cx;
+//	if (x < 0.0)
+//	{
+//		cx = -x;
+//		neg = 1.0;
+//	}
+//	else
+//	{
+//		cx = x;
+//		neg = 0.0;
+//	}
+//	t = 1.0 / (1.0 + r * cx);
+//	cx = norm_dis(x) * ((((b5 * t + b4) * t + b3) * t + b2) * t + b1) * t;
+//	return (neg) ? cx : 1.0 - cx;
+//}
+//
+//double erfc(double x)      /* inverse error function ) */
+//{
+//	const double
+//		c0 = 2.515517, c1 = 0.802853, c2 = 0.010328, d1 = 1.432788, d2 = 0.189269,
+//		d3 = 0.001308;
+//	double t, omx;
+//	double lth;
+//	if (x < 0.5)
+//	{
+//		omx = x;
+//		lth = -1.0;
+//	}
+//	else
+//	{
+//		omx = 1.0 - x;
+//		lth = 1.0;
+//	}
+//	t = sqrt(log(1.0 / (omx * omx)));
+//	return (t - ((c2 * t + c1) * t + c0) / (((d3 * t + d2) * t + d1) * t + 1.0)) * lth;
+//}
 
 double norm_dis(double x)        /* normal distribution */
 {
