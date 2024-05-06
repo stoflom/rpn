@@ -6,3 +6,5 @@ src/rpn
 /src/.vs/rpn
 /.vs
 /src/UpgradeLog.htm
+/src/x64/Release
+/x64/Release
