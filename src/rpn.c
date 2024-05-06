@@ -131,7 +131,7 @@ char help_screen2[] = "\n"
 "    mean x,y           'mn'         std. dev.sx,sy,sxy 'sd'\n"
 "    PV (Compounded)    'pv'         FV (Compounded)    'fv'\n"
 "    i (Compound)       'ci'         PMT (Mortgage)     'pt'\n"
-"    i (Mortgage)       'mi'\n"
+"    i (Mortgage)       'mi'         i (Annuity)        'ni'\n"
 "    FV (Ord. Annuity)  'fa'         PV (Ord.Annuity)   'pa'\n"
 "    FV (Annuity due)   'fd'         PV (Annuity due)   'pd'\n"
 "    disp. fixed(n)     'fxn'        disp. scien.(n)    'fsn'\n"
@@ -191,7 +191,7 @@ double norm_dis (double);   /* normal distribution */
 double errf (double);       /* error function */
 double inerrf (double);     /* inverse error function */
 double find_mortgage_i (void);  /* find mortgage interest by newton iteration */
-
+double find_annuity_i (void);  /* find annuity interest */
 
 int main ()
 {
@@ -959,6 +959,12 @@ int main ()
 							update (1);
 							break;
 						}
+					case 'i':
+						{
+							regs[0]   = 100.0*find_annuity_i ();
+							update_regs   ();
+							break;
+						}
 					}
 					break;
 				}
@@ -1702,9 +1708,32 @@ double find_mortgage_i    ()      /* calculate interest rate by iteration */
 		pofn = pow (i0p1,-n);
 		i1 = i0 - ((1.0 - pofn) / i0 - rat) / ((pofn * (i0 * i0p1 / (1.0 - n) + 1.0) - 1.0) / (i0 * i0));
 	}
-	while ( fabs(i0 - i1) > SMALL);
+	while ( fabs(i0 - i1) > 1e-12);
 	return i1;
 }
+
+double find_annuity_i    ()      /* calculate interest rate of an annuity*/
+{
+	double n, i1,i0, i0p1, PV0, PMT, PVn, f, fp, pofn, pofnm1;
+	n =   regs[4];
+	PMT = regs[3];
+	PVn = regs[2];
+	PV0 =regs[1];
+	i1 = PMT/PV0+(PVn/PV0-1.0)/n;
+	do
+	{
+		i0 = i1;
+		i0p1 = i0 + 1.0;
+		pofn = pow (i0p1,n);
+		pofnm1 = pofn / i0p1;
+		f = pofn*(PV0-PMT/i0)+PMT/i0-PVn;
+		fp = n*pofnm1*(PV0-PMT/i0)+PMT/i0/i0*(pofn-1.0);
+		i1 = i0 - f/fp;
+	}
+	while ( fabs(i0 - i1) > 1e-12);
+	return i1;
+}
+
 
 double errf (double x)            /* error function */
 {
