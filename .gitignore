@@ -1,10 +1,9 @@
-src/rpn
-/src/Debug/rpn.tlog
+/src/rpn
 /src/Debug
-/src/x64/rpn-x64
-/x64/rpn-x64
-/src/.vs/rpn
+/src/x64
+/src/.vscode
+/src/x64
+/src/.vs
 /.vs
-/src/UpgradeLog.htm
-/src/x64/Release
-/x64/Release
+/.vscode
+/x64
