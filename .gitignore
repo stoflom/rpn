@@ -1,9 +1,6 @@
 /src/rpn
-/src/Debug
-/src/x64
-/src/.vscode
-/src/x64
-/src/.vs
-/.vs
-/.vscode
-/x64
+/src/Debug/
+/src/x64/
+/src/.vs/
+/.vs/
+/x64/
