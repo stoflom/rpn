@@ -912,9 +912,9 @@ int main()
 					double secs;
 					lastx = s_x;
 					secs = (s_x * 3600.0);
-					hours = floor(secs / 3600);
+					hours = (int) floor(secs / 3600);
 					secs = secs - hours * 3600;
-					mins = floor(secs / 60);
+					mins = (int) floor(secs / 60);
 					secs = secs - mins * 60;
 					s_x = hours + mins / 100.0 + secs / 10000.0;
 					update(1);
