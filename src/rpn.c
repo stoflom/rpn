@@ -95,7 +95,7 @@ NB unix  character translations are done in get_ch() */
 #define _FACT   '!'
 #define _RUBOUT '\b'
 
-#define SMALL 1.0e-20       /* a very small number, tests for 0.0 */
+#define SMALL 1.0e-13       /* a very small number, tests for convergence of Newtons method */
 
 /* utility keys */
 #define _QUIT   'q'     /* quit the program */
@@ -870,7 +870,7 @@ int main()
 					double d, t, r, x;
 					d = s_y * s_y - 4.0 * s_x * s_z;    /*discriminant */
 					t = 2.0 * s_x;
-					if (fabs(t) > SMALL)
+					if (fabs(t) > 0.0)
 					{   /* is a quadratic equation allright */
 						r = -s_y / t;
 						if (d >= 0.0)
@@ -917,9 +917,9 @@ int main()
 					double secs;
 					lastx = s_x;
 					secs = (s_x * 3600.0);
-					hours = (int) floor(secs / 3600);
+					hours = (int)floor(secs / 3600);
 					secs = secs - hours * 3600;
-					mins = (int) floor(secs / 60);
+					mins = (int)floor(secs / 60);
 					secs = secs - mins * 60;
 					s_x = hours + mins / 100.0 + secs / 10000.0;
 					update(1);
@@ -1697,17 +1697,22 @@ void update(char liftup)     /* updates display */
 double find_mortgage_i()      /* calculate interest rate by iteration */
 {
 	double i0, i1, i0p1, n, pofn, rat;
-	n = regs[4];
-	rat = regs[1] / regs[3];
-	i1 = 1.0 / rat - rat / (n * n);
-	do
-	{
-		if (i1 == 0.0) break;		//cater for zero interest rate
-		i0 = i1;
-		i0p1 = i0 + 1.0;
-		pofn = pow(i0p1, -n);
-		i1 = i0 - ((1.0 - pofn) / i0 - rat) / ((pofn * (i0 * i0p1 / (1.0 - n) + 1.0) - 1.0) / (i0 * i0));
-	} while (fabs(i0 - i1) > 1e-12);
+	if (regs[3] == 0.0) {
+		i1 = 0.0;						//zero interest if PMT=0
+	}
+	else {
+		n = regs[4];
+		rat = regs[1] / regs[3];
+		i1 = 1.0 / rat - rat / (n * n);
+		do
+		{
+			if (i1 == 0.0) break;		//cater for zero interest rate
+			i0 = i1;
+			i0p1 = i0 + 1.0;
+			pofn = pow(i0p1, -n);
+			i1 = i0 - ((1.0 - pofn) / i0 - rat) / ((pofn * (i0 * i0p1 / (1.0 - n) + 1.0) - 1.0) / (i0 * i0));
+		} while (fabs(i0 - i1) > SMALL);
+	}
 	return i1;
 }
 
@@ -1729,7 +1734,7 @@ double find_annuity_i()      /* calculate interest rate of an annuity*/
 		f = pofn * (PV0 - PMT / i0) + PMT / i0 - PVn;
 		fp = n * pofnm1 * (PV0 - PMT / i0) + PMT / i0 / i0 * (pofn - 1.0);
 		i1 = i0 - f / fp;
-	} while (fabs(i0 - i1) > 1e-12);
+	} while (fabs(i0 - i1) > SMALL);
 	return i1;
 }
 
