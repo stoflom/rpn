@@ -1702,6 +1702,7 @@ double find_mortgage_i()      /* calculate interest rate by iteration */
 	i1 = 1.0 / rat - rat / (n * n);
 	do
 	{
+		if (i1 == 0.0) break;		//cater for zero interest rate
 		i0 = i1;
 		i0p1 = i0 + 1.0;
 		pofn = pow(i0p1, -n);
@@ -1720,6 +1721,7 @@ double find_annuity_i()      /* calculate interest rate of an annuity*/
 	i1 = PMT / PV0 + (PVn / PV0 - 1.0) / n;
 	do
 	{
+		if (i1 == 0.0) break;		//cater for zero interest rate
 		i0 = i1;
 		i0p1 = i0 + 1.0;
 		pofn = pow(i0p1, n);
