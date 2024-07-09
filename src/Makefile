@@ -18,5 +18,6 @@ rpn: $(OBJS)
 clean:
 	$(RM) $(OBJS)
 
-
-
+realclean:
+	$(RM) $(OBJS) rpn
+	

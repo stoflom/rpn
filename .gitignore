@@ -1,4 +1,5 @@
 /src/rpn
+/src/*.o
 /src/Debug/
 /src/x64/
 /src/.vs/
