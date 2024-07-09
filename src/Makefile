@@ -4,13 +4,15 @@ CPPFLAGS=-g
 LDFLAGS=-g
 LDLIBS=-lm -lncurses
 
+TARGET=rpn
 SRCS=rpn.c
+
 OBJS=$(subst .c,.o,$(SRCS))
 
-all: rpn
+all: $(TARGET)
 
-rpn: $(OBJS)
-	$(CC) $(LDFLAGS) -o rpn $(OBJS) $(LDLIBS)
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LDLIBS)
 	
 *.o: *.c
 	$(CC) $(CPPFLAGS) $(SRCS)
@@ -19,5 +21,5 @@ clean:
 	$(RM) $(OBJS)
 
 realclean:
-	$(RM) $(OBJS) rpn
+	$(RM) $(OBJS) $(TARGET)
 	
