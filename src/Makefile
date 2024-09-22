@@ -3,7 +3,7 @@ RM=rm -f
 CPPFLAGS=-g
 LDFLAGS=-g
 LDLIBS=-lm -lncurses
-# On Centos  need to install: ncurses, ncurses-devel
+# On Centos  need to install packages: ncurses, ncurses-devel
 
 
 
