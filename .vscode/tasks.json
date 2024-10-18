@@ -7,13 +7,14 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-orpn",
-                "-lm", 
-                "-lncurses",
-                "${workspaceFolder}/src/rpn.c"
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-lm",
+                "-lncurses"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/src"
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
