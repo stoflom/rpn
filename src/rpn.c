@@ -1723,18 +1723,25 @@ double find_annuity_i()      /* calculate interest rate of an annuity*/
 	PMT = regs[3];
 	PVn = regs[2];
 	PV0 = regs[1];
-	i1 = PMT / PV0 + (PVn / PV0 - 1.0) / n;
-	do
-	{
-		if (i1 == 0.0) break;		//cater for zero interest rate
-		i0 = i1;
-		i0p1 = i0 + 1.0;
-		pofn = pow(i0p1, n);
-		pofnm1 = pofn / i0p1;
-		f = pofn * (PV0 - PMT / i0) + PMT / i0 - PVn;
-		fp = n * pofnm1 * (PV0 - PMT / i0) + PMT / i0 / i0 * (pofn - 1.0);
-		i1 = i0 - f / fp;
-	} while (fabs(i0 - i1) > SMALL);
+	if (PV0 == 0.0) i1 = 0.0;
+	else {
+		if (PMT == 0)
+			i1 = pow(PVn / PV0, 1 / n) - 1.0;
+		else {
+			i1 = PMT / PV0 + (PVn / PV0 - 1.0) / n;
+			do
+			{
+				if (i1 == 0.0) break;		//cater for zero interest rate
+				i0 = i1;
+				i0p1 = i0 + 1.0;
+				pofn = pow(i0p1, n);
+				pofnm1 = pofn / i0p1;
+				f = pofn * (PV0 - PMT / i0) + PMT / i0 - PVn;
+				fp = n * pofnm1 * (PV0 - PMT / i0) + PMT / i0 / i0 * (pofn - 1.0);
+				i1 = i0 - f / fp;
+			} while (fabs(i0 - i1) > SMALL);
+		}
+	}
 	return i1;
 }
 
