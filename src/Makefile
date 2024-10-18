@@ -4,12 +4,13 @@ CPPFLAGS=-g
 LDFLAGS=-g
 LDLIBS=-lm -lncurses
 # On Centos  need to install packages: ncurses, ncurses-devel
-
+INSTALLDIR=/usr/local/bin  #requires root
 
 
 TARGET=rpn
 SRCS=rpn.c
 HEADERS=
+
 
 OBJS=$(subst .c,.o,$(SRCS))
 
@@ -26,4 +27,7 @@ clean:
 
 realclean:
 	$(RM) $(OBJS) $(TARGET)
+
+install: $(TARGET)
+	cp $(TARGET) $(INSTALLDIR)
 	
