@@ -102,10 +102,10 @@ NB unix  character translations are done in get_ch() */
 #define _QUIT   'q'     /* quit the program */
 #define _HELP   '?'     /* show help screen */
 
-char d_format[10] = "%30.3g";   /*const format variable */
-char disp_format[8] = "eng3";   /* format flag */
+static char d_format[10] = "%30.3g";   /*mutable number format string */
+static char disp_format[8] = "eng3";   /*mutable number format label */
 
-char help_screen1[] = "\n"
+const char help_screen1[] = "\n"
 "    FUNCTION           KEY          FUNCTION           KEY\n"
 "    enter              'Enter'      +,*,-,/            '+,*,-,/'\n"
 "    change sign        ','          square root x      '\\'\n"
@@ -128,7 +128,7 @@ char help_screen1[] = "\n"
 "    normal density     'no' \n\n"
 "       For more - any key   q - quits";
 
-char help_screen2[] = "\n"
+const char help_screen2[] = "\n"
 "    FUNCTION           KEY          FUNCTION           KEY\n"
 "    exp x              'xp'         ln x               'ln'\n"
 "    10^x               'tx'         log x              'lg'\n"
@@ -153,30 +153,30 @@ char help_screen2[] = "\n"
 
 
 /* state flags */
-char lift = 0;          /*true if stack must be lifted */
-char min_exp = 0;       /*true if '-' in exponent, afterthought: also '+'.  */
-double convert = 1;     /*rad-deg (grad is long dead) conversion factor */
+static char lift = 0;          /*true if stack must be lifted */
+static char min_exp = 0;       /*true if '-' in exponent, after-thought: also '+'.  */
+static double convert = 1;     /*rad-deg (grad is long dead) conversion factor */
 
 /* windows positions */
-char stackw_bottom = 23;    /* stack window lines from top */
-char stackw_left = 25;      /* stack window characters from right */
-char stackw_width = 60;     /* stack window width */
-char regw_bottom = 14;      /* reg window lines from top */
-char regw_left = 25;        /* reg window characters from right */
-char regw_width = 60;       /* reg window width */
-char echow_bottom = 24;     /* lines from top */
-char echow_left = 65;       /* characters from left */
-char echow_width = 15;      /* echo window width */
-char flagw_bottom = 1;      /* flags */
-char flagw_left = 55;
+const char stackw_bottom = 23;    /* stack window lines from top */
+const char stackw_left = 25;      /* stack window characters from right */
+const char stackw_width = 60;     /* stack window width */
+const char regw_bottom = 14;      /* reg window lines from top */
+const char regw_left = 25;        /* reg window characters from right */
+const char regw_width = 60;       /* reg window width */
+const char echow_bottom = 24;     /* lines from top */
+const char echow_left = 65;       /* characters from left */
+const char echow_width = 15;      /* echo window width */
+const char flagw_bottom = 1;      /* flags */
+const char flagw_left = 55;
 
 
 
 
 /* main variables */
-double s_x, s_y, s_z, s_t;  /* stack variables */
-double lastx;           /* last x variable */
-double regs[10];        /* registers */
+static double s_x, s_y, s_z, s_t;  /* stack variables */
+static double lastx;           /* last x variable */
+static double regs[10];        /* registers */
 
 /* buffer */
 char echo_buffer[16];       /* used for input echoing */
@@ -1123,24 +1123,24 @@ HANDLE hOuput;
 struct _CONSOLE_SCREEN_BUFFER_INFO wAttr;
 
 
-void clrscr() /*Clears the screen*/
+static void clrscr() /*Clears the screen*/
 {
 	system("cls");
 }
 
-void gotoxy(int xpos, int ypos)
+static void gotoxy(int xpos, int ypos)
 {
 	COORD scrn = { 0,0 };
 	scrn.X = xpos + 1; scrn.Y = ypos - 1;
 	SetConsoleCursorPosition(hOuput, scrn);
 }
 
-void lowvideo()
+static void lowvideo()
 {
 	SetConsoleTextAttribute(hOuput, wAttr.wAttributes);
 }
 
-void highvideo()
+static void highvideo()
 {
 	SetConsoleTextAttribute(hOuput, wAttr.wAttributes ^ FOREGROUND_INTENSITY);
 }
