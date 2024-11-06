@@ -59,6 +59,7 @@ seems to do the trick.
 #include <conio.h>
 #define stpcpy(dest,src) ((strcpy((dest),(src)))+strlen(src))
 #define _USE_MATH_DEFINES  /* must be defined for M_PI */
+#define _CRT_SECURE_NO_WARNINGS
 #endif
 
 
@@ -1129,7 +1130,7 @@ void clrscr() /*Clears the screen*/
 
 void gotoxy(int xpos, int ypos)
 {
-	COORD scrn;
+	COORD scrn = { 0,0 };
 	scrn.X = xpos + 1; scrn.Y = ypos - 1;
 	SetConsoleCursorPosition(hOuput, scrn);
 }
