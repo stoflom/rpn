@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/stoffel/Workspace/rpn/src",
+            "binaryPath": "/home/stoffel/Workspace/rpn/src/rpn",
+            "binaryArgs": []
+        }
+    ]
+}

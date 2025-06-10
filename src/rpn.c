@@ -224,7 +224,7 @@ int main()
 	{
 		if (input == _RUBOUT) /* backspace character */
 		{
-			count -= (count > 0);
+ 			count -= (count > 0);
 			echo_buffer[count] = '\0';
 			clear_echo();
 		}
