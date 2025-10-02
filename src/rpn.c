@@ -31,6 +31,9 @@ For unix version: link with -lm -lncurses, i.e.
 gcc -O rpn.c -o rpn -lm -lncurses
 seems to do the trick.
 
+This means on Fedora you need first:
+>sudo dnf install ncurses ncurses-devel
+
 ***  To display this file nicely - set tab every 2 chars. ***
 */
 
