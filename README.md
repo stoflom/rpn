@@ -29,3 +29,8 @@ For unix version: link with -lm -lncurses, i.e.
 gcc -O rpn.c -o rpn -lm -lncurses    
 
 seems to do the trick.
+
+This means on fedora you need:
+sudo dnf install ncurses ncurses-devel
+
+
