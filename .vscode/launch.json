@@ -5,10 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/src/qrpn",
+            "program": "${workspaceFolder}/src/rpn",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
