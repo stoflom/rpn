@@ -144,10 +144,12 @@ const char help_screen2[] = "\n"
 "    sum x,xy,y...      'sp'         subtract x,xy,y... 'sm'\n"
 "    mean x,y           'mn'         std. dev.sx,sy,sxy 'sd'\n"
 "    PV (Compounded)    'pv'         FV (Compounded)    'fv'\n"
+"    n (Mortage)        'nn'         n (Periodic)       'pn'\n"
 "    i (Compound)       'ci'         PMT (Mortgage)     'pt'\n"
 "    i (Mortgage)       'mi'         i (Annuity)        'ni'\n"
 "    FV (Ord. Annuity)  'fa'         PV (Ord.Annuity)   'pa'\n"
 "    FV (Annuity due)   'fd'         PV (Annuity due)   'pd'\n"
+"    FV (Periodic)      'fp'         PMT (Periodic)     'pp'\n"
 "    disp. fixed(n)     'fxn'        disp. scien.(n)    'fsn'\n"
 "    display eng.(n)    'fgn'        for 12 digits n=<space>\n"
 "    QUIT program       'q' \n\n"
@@ -693,6 +695,18 @@ int main()
 					update_regs();
 					break;
 				}
+				case 'n':  /* n for periodic savings up to amount*/
+				{
+					regs[4] = log(regs[2] * (regs[0] / 100.0) / regs[3] + 1.0 + regs[0] / 100.0) / log(1.0 + regs[0] / 100.0) - 1.0;
+					update_regs();
+					break;
+				}
+				case 'p':  /* PMT for periodic savings up to amount*/
+				{
+					regs[3] = regs[2] * (regs[0] / 100.0) / (pow((1.0 + (regs[0] / 100.0)), regs[4] + 1.0) - 1.0 - regs[0] / 100.0);
+					update_regs();
+					break;
+				}
 				}
 				break;
 			}
@@ -805,6 +819,13 @@ int main()
 				case 'd': /* FV  annuity due (payment at start of period)*/
 				{
 					regs[2] = (regs[3] * ((pow((1.0 + (regs[0] / 100.0)), (regs[4])) - 1.0) / (regs[0] / 100.0))) * (1.0 + (regs[0] / 100.0));
+					update_regs();
+					break;
+				}
+
+				case 'p': /* FV  periodic saving*/
+				{
+					regs[2] = regs[3] * 100.0/regs[0] * (pow((1.0 + (regs[0] / 100.0)), (regs[4]) + 1.0) - 1.0 - regs[0] / 100.0);
 					update_regs();
 					break;
 				}
@@ -981,6 +1002,12 @@ int main()
 				case 'i':
 				{
 					regs[0] = 100.0 * find_annuity_i();
+					update_regs();
+					break;
+				}
+				case 'n': /* n for mortgage */
+				{
+					regs[4] = -1.0*log(1.0-regs[0]/100.0 *regs[1]/regs[3]) / log(1.0 + regs[0]/100.0)	;
 					update_regs();
 					break;
 				}
