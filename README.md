@@ -25,37 +25,29 @@ commands can start with 'e' or _EEX character since these characters signal an
 exponent.
 
 If you divide by zero or pull the root of a negative number, your
-house will cave in - serves you right!
+house will cave in --- serves you right!
 
-For unix version: link with -lm -lncurses. This means on fedora you need to
+For unix/linux: link with '-lm -lncurses'. This means on fedora you need to
 first do:
-
 
 ```
 sudo dnf install ncurses ncurses-devel
 ```
 
-
 then build using:
-
 
 ```
 gcc -O rpn.c -o rpn -lm -lncurses 
 ```
-
-seems to do the trick.
-
- If you have make installed you can just say:
-
+If you have 'make' installed you can just say:
 
 ```
 make
 ```
-
-
 I normally copy the resulting binary to the execution path:
-
->cp ./rpn /usr/local/bin
+```
+sudo cp ./rpn /usr/local/bin
+```
 
 For windows you can compile with Visual Studio Community (a project/solution is provided), or use the TinyC compiler.
 
